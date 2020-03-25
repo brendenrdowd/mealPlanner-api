@@ -1,4 +1,4 @@
-CREATE TABLE mealplan_day (
+CREATE TABLE mealplan_recipes (
   id SERIAL PRIMARY KEY,
   recipes TEXT,
   date TIMESTAMP NOT NULL
@@ -15,7 +15,7 @@ CREATE TABLE mealplan_users (
   date_modified TIMESTAMP
 );
 
-ALTER TABLE mealplan_day
+ALTER TABLE mealplan_recipes
   ADD COLUMN
     user_id INTEGER REFERENCES mealplan_users(id)
     ON DELETE SET NULL;
