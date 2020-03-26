@@ -61,7 +61,6 @@ usersRouter
   .all(requireAuth)
   .all(checkuserExists)
   .get((req, res) => {
-    console.log("user: ", res.user)
     res.json(UsersService.serializeUser(res.user))
   })
 
@@ -76,7 +75,6 @@ async function checkuserExists(req, res, next) {
       return res.status(404).json({
         error: `user doesn't exist`
       })
-    console.log("check:", res.user)
     res.user = user
     next()
   } catch (error) {

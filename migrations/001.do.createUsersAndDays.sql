@@ -1,7 +1,7 @@
 CREATE TABLE mealplan_recipes (
   id SERIAL PRIMARY KEY,
   recipes TEXT,
-  date TIMESTAMP NOT NULL
+  date DATE NOT NULL
 );
 
 CREATE TABLE mealplan_users (

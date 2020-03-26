@@ -1,16 +1,23 @@
 const RecipesService = {
-  getRecipeById(db,id){
-    return db('mealplan_Recipes')
-    .where({id})
+  getRecipeByDate(db,date,user_id){
+    return db('mealplan_recipes')
+    .where({user_id})
+    .andWhere({date})
     .first()
   },
   insertRecipe(db,newRecipe){
     return db
-    .insert(newUser)
-    .into('mealplan_users')
+    .insert(newRecipe)
+    .into('mealplan_recipes')
     .returning('*')
-    .then(([user]) => user)
+    .then(([recipe]) => recipe)
   },
+  serializeRecipe(recipe){
+    return {
+      recipes: recipe.recipes,
+      date: recipe.date,
+    }
+  }
 }
 
 module.exports = RecipesService
