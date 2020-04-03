@@ -1,47 +1,47 @@
 const express = require('express')
-const path = require('path')
 const RecipesService = require('./recipes-service')
 const { requireAuth } = require('../middleware/jwt-auth')
 
 const recipesRouter = express.Router()
 const jsonBodyParser = express.json()
 
+// get by date
 recipesRouter
   .route('/:date')
-  // .all(checkRecipeExists)
   .all(requireAuth)
-  .get((req, res,next) => {
-    console.log("getRecipeByDate",req.user.id,req.params.date)
+  .get((req, res, next) => {
+    console.log("getRecipeByDate", req.user.id, req.params.date)
     RecipesService.getRecipeByDate(
       req.app.get('db'),
       req.params.date,
       req.user.id
-    ).then(recipes =>{ 
+    ).then(recipes => {
       (!recipes) ? res.status(404).json({
         error: `No Recipes saved for this date`
-      }) : 
-      res.json(recipes)
+      }) :
+        res.json(recipes)
     })
-    .catch(next)
+      .catch(next)
   })
 // update?
 
 // delete
 recipesRouter
-.route('/:recipeId')
-.all(requireAuth)
-.delete((req,res,next) =>{
-  RecipesService.deleteRecipe(
-    req.app.get('db'),
-    req.params.recipeId
-  )
-})
+  .route('/:recipeId')
+  .all(requireAuth)
+  .delete((req, res, next) => {
+    RecipesService.deleteRecipe(
+      req.app.get('db'),
+      req.params.recipeId
+    )
+  })
 
+// insert
 recipesRouter
   .route('/')
   .post(requireAuth, jsonBodyParser, (req, res, next) => {
     const { user_id, date, recipeId } = req.body
-    const newPlan = { user_id, date, recipes: recipeId }
+    const newPlan = { user_id, date, recipe: recipeId }
 
     for (const [key, value] of Object.entries(newPlan))
       if (value == null)
@@ -59,24 +59,5 @@ recipesRouter
           .json(RecipesService.serializeRecipe(plan))
       })
   })
-
-async function checkRecipeExists(req, res, next) {
-  try {
-    const thing = await RecipesService.getRecipeByDate(
-      req.app.get('db'),
-      req.params.date
-    )
-
-    if (!date)
-      return res.status(404).json({
-        error: `No saved recipes for that date`
-      })
-
-    res.thing = thing
-    next()
-  } catch (error) {
-    next(error)
-  }
-}
 
 module.exports = recipesRouter
