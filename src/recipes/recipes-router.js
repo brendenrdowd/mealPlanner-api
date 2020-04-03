@@ -11,16 +11,16 @@ recipesRouter
   // .all(checkRecipeExists)
   .all(requireAuth)
   .get((req, res,next) => {
-    console.log("getRecipeByDate",req.user.id,req.params.date.split(' ')[0])
+    console.log("getRecipeByDate",req.user.id,req.params.date)
     RecipesService.getRecipeByDate(
       req.app.get('db'),
-      //need to fix this is in the date string being passed back
-      req.params.date.split(' ')[0],
+      req.params.date,
       req.user.id
     ).then(recipes =>{ 
-      (recipes) ? res.json(RecipesService.serializeRecipe(recipes)) : res.status(400).json({
+      (!recipes) ? res.status(404).json({
         error: `No Recipes saved for this date`
-      })
+      }) : 
+      res.json(recipes)
     })
     .catch(next)
   })
@@ -31,7 +31,10 @@ recipesRouter
 .route('/:recipeId')
 .all(requireAuth)
 .delete((req,res,next) =>{
-  // Come back to this 3/26
+  RecipesService.deleteRecipe(
+    req.app.get('db'),
+    req.params.recipeId
+  )
 })
 
 recipesRouter

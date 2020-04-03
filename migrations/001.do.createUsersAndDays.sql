@@ -1,6 +1,6 @@
 CREATE TABLE mealplan_recipes (
   id SERIAL PRIMARY KEY,
-  recipes TEXT,
+  recipe TEXT, 
   date DATE NOT NULL
 );
 
