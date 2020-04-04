@@ -12,7 +12,6 @@ const RecipesService = {
     .then(([recipe]) => recipe)
   },
   deleteRecipe(db,recipeId){
-    console.log(recipeId)
     return db
     .from('mealplan_recipes')
     .where('id',recipeId)

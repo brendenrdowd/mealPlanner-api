@@ -10,7 +10,6 @@ recipesRouter
   .route('/:date')
   .all(requireAuth)
   .get((req, res, next) => {
-    console.log("getRecipeByDate", req.user.id, req.params.date)
     RecipesService.getRecipeByDate(
       req.app.get('db'),
       req.params.date,
@@ -29,7 +28,7 @@ recipesRouter
 recipesRouter
   .route('/:recipeId')
   .all(requireAuth)
-  .delete((req, res, next) => {
+  .delete((req) => {
     RecipesService.deleteRecipe(
       req.app.get('db'),
       req.params.recipeId
@@ -39,7 +38,7 @@ recipesRouter
 // insert
 recipesRouter
   .route('/')
-  .post(requireAuth, jsonBodyParser, (req, res, next) => {
+  .post(requireAuth, jsonBodyParser, (req, res) => {
     const { user_id, date, recipeId } = req.body
     const newPlan = { user_id, date, recipe: recipeId }
 
