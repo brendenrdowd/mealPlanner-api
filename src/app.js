@@ -21,7 +21,7 @@ app.use('/api/recipes', recipesRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 
-app.use(function errorHandler(error, req, res, next) {
+app.use(function errorHandler(error, req, res ) {
   let response
   if (NODE_ENV === 'production') {
     response = { error: 'Server error' }
