@@ -51,9 +51,11 @@ to run front-end or back-end tests, run ``` npm test ```
   },
   diet: String,,
   interolances: String
-} ```
+} 
+```
 ##### Recipes
-``` {
+``` 
+{
   date:{
     type:String,
     required:true
@@ -66,11 +68,13 @@ to run front-end or back-end tests, run ``` npm test ```
     type: userId, 
     ref: User 
   }]
-} ```
+} 
+```
 
 ## Api Overview
 
-``` /api
+``` 
+/api
 .
 ├── /auth
 │   └── POST
