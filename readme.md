@@ -34,7 +34,7 @@ Install the dependencies and devDependencies and start the server
 ### Testing 
 to run front-end or back-end tests, run ``` npm test ```
 ### Schema
-##### Users
+#### Users
 ``` {
   name:{
     type:String,
@@ -53,7 +53,7 @@ to run front-end or back-end tests, run ``` npm test ```
   interolances: String
 } 
 ```
-##### Recipes
+#### Recipes
 ``` 
 {
   date:{
