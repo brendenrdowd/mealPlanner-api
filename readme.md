@@ -65,7 +65,7 @@ to run front-end or back-end tests, run ``` npm test ```
     required:true
   },
   users: [{ 
-    type: userId, 
+    type: user_id, 
     ref: User 
   }]
 } 
