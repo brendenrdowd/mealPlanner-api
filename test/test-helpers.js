@@ -28,7 +28,7 @@ function makeRecipeArray(users) {
       id: 1,
       user_id: users[0].user_id,
       recipe: '695646',
-      date: '2020-04-03'
+      date: '2020-06-06'
     },
     {
       id: 2,
@@ -58,6 +58,21 @@ function makeRecipeFixtures() {
   return { testUsers, testRecipes }
 }
 
+function makeExpectedRecipe(user, recipe ) {
+  return {
+    id: recipe.id,
+    date: recipe.date,
+    recipe: recipe.recipe,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      interolances: user.interolances,
+      diet: user.diet,
+    },
+  }
+}
+
 function cleanTables(db) {
   return db.raw(
     `TRUNCATE
@@ -78,7 +93,7 @@ function seedUsers(db, users) {
 function seedRecipeTables(db, users, recipes) {
   return db.transaction(async trx => {
     await seedUsers(trx, users)
-    await trx.into('recipes').insert(recipes)
+    await trx.into('mealplan_recipes').insert(recipes)
   })
 }
 
@@ -95,6 +110,7 @@ module.exports = {
   makeUsersArray,
   makeRecipeArray,
   makeRecipeFixtures,
+  makeExpectedRecipe,
   cleanTables,
   seedRecipeTables,
   seedUsers,
